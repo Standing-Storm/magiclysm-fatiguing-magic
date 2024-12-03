@@ -1,0 +1,38 @@
+[
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_MAGICLYSM_WEARINESS_REMOVE_MANA_COST",
+    "eoc_type": "EVENT",
+    "required_event": "opens_spellbook",
+    "effect": [ { "math": [ "u_spellcasting_adjustment('cost', 'mod': 'magiclysm') = -1" ] } ]
+  },
+   {
+    "type": "effect_on_condition",
+    "id": "EOC_MAGICLYSM_WEARINESS_ADD_WEARINESS_COST",
+    "eoc_type": "EVENT",
+    "required_event": "spellcasting_finish",
+    "condition": {
+      "and": [
+        {
+          "u_has_any_trait": [ "ANIMIST", "BIOMANCER", "DRUID", "EARTHSHAPER", "KELVINIST", "MAGUS", "STORMSHAPER", "TECHNOMANCER" ]
+        },
+        {
+          "or": [
+            { "compare_string": [ "ANIMIST", { "context_val": "school" } ] },
+            { "compare_string": [ "BIOMANCER", { "context_val": "school" } ] },
+            { "compare_string": [ "DRUID", { "context_val": "school" } ] },
+            { "compare_string": [ "EARTHSHAPER", { "context_val": "school" } ] },
+            { "compare_string": [ "KELVINIST", { "context_val": "school" } ] },
+            { "compare_string": [ "MAGUS", { "context_val": "school" } ] },
+            { "compare_string": [ "STORMSHAPER", { "context_val": "school" } ] },
+            { "compare_string": [ "TECHNOMANCER", { "context_val": "school" } ] }
+          ]
+        }
+      ]
+    },
+    "effect": [
+      { "math": [ "u_calories()", "-=", "20 * _difficulty" ] },
+      { "math": [ "u_calories('dont_affect_weariness': true)", "+=", "20 * _difficulty" ] } 
+    ]
+  }
+]
