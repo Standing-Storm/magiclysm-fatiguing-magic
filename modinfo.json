@@ -1,0 +1,11 @@
+[
+  {
+    "type": "MOD_INFO",
+    "id": "Magiclysm: Fatiguing Magic",
+    "name": "<color_pink>Magiclysm: Fatiguing Magic</color>",
+    "authors": [ "Standing-Storm" ],
+    "description": "Changes Magiclysm magic to use weariness instead of mana.",
+    "category": "magical",
+    "dependencies": [ "dda", "magiclysm" ]
+  }
+]
