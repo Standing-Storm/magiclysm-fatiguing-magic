@@ -1,12 +1,24 @@
 [
   {
+    "type": "jmath_function",
+    "id": "weariness_mana_adjustments_additive",
+    "num_args": 0,
+    "return": "(u_has_trait('MANA_ADD1') ? 20 : 0) + (u_has_trait('MANA_ADD2') ? 40 : 0) + (u_has_trait('MANA_ADD3') ? 60 : 0) + (u_has_trait('MANA_SUB1') ? -20 : 0) + (u_has_trait('MANA_SUB2') ? -40 : 0) + (u_has_trait('MANA_SUB3') ? -60 : 0)"
+  },  
+  {
+    "type": "jmath_function",
+    "id": "weariness_mana_adjustments_multiplicative",
+    "num_args": 0,
+    "return": "(u_has_trait('MANA_MULT1') ? 0.8 : 0) + (u_has_trait('MANA_MULT2') ? 0.6 : 0) + (u_has_trait('MANA_MULT3') ? 0.4 : 0) + (u_has_trait('BAD_MANA_MULT1') ? 1.15 : 0) + (u_has_trait('BAD_MANA_MULT2') ? 1.35 : 0) + (u_has_trait('BAD_MANA_MULT3') ? 1.65 : 0)"
+  },
+  {
     "type": "effect_on_condition",
     "id": "EOC_MAGICLYSM_WEARINESS_REMOVE_MANA_COST",
     "eoc_type": "EVENT",
     "required_event": "opens_spellbook",
     "effect": [ { "math": [ "u_spellcasting_adjustment('cost', 'mod': 'magiclysm') = -1" ] } ]
   },
-   {
+  {
     "type": "effect_on_condition",
     "id": "EOC_MAGICLYSM_WEARINESS_ADD_WEARINESS_COST",
     "eoc_type": "EVENT",
@@ -31,8 +43,23 @@
       ]
     },
     "effect": [
-      { "math": [ "u_calories()", "-=", "20 * _difficulty" ] },
-      { "math": [ "u_calories('dont_affect_weariness': true)", "+=", "20 * _difficulty" ] } 
+      { "math": [ "(u_calories()", "-=", "max( ( ( (20 * _difficulty) - weariness_mana_adjustments_additive() ) * weariness_mana_adjustments_multiplicative() ), 10)" ] },
+      { "math": [ "u_calories('dont_affect_weariness': true)", "+=", "max( ( ( (20 * _difficulty) - weariness_mana_adjustments_additive() ) * weariness_mana_adjustments_multiplicative() ), 10)" ] },
+      { "if": { "x_in_y_chance": { "x": { "math": [ "_difficulty"] }, "y": 40 } },
+        "then": { "math": [ "u_val('sleepiness')", "+=", "rand(3)" ] },
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_MAGICLYSM_WEARINESS_CANT_CAST_SPELLS_WHILE_TIRED",
+    "eoc_type": "EVENT",
+    "required_event": "opens_spellbook",
+    "condition": { "or": [ { "u_has_effect": "weary_7"}, { "u_has_effect": "weary_8"} ] },
+    "effect": [ 
+      { "math": [ "u_spellcasting_adjustment('difficulty', 'mod': 'magiclysm') = 999" ] },
+      { "math": [ "u_spellcasting_adjustment('cost', 'mod': 'magiclysm') = 999" ] }
+      { "u_message": "You are much too tired to cast anything!", "type": "bad" }
     ]
   }
 ]
