@@ -3,7 +3,7 @@
     "type": "jmath_function",
     "id": "weariness_mana_adjustments_additive",
     "num_args": 0,
-    "return": "(u_has_trait('MANA_ADD1') ? 20 : 0) + (u_has_trait('MANA_ADD2') ? 40 : 0) + (u_has_trait('MANA_ADD3') ? 60 : 0) + (u_has_trait('MANA_SUB1') ? -20 : 0) + (u_has_trait('MANA_SUB2') ? -40 : 0) + (u_has_trait('MANA_SUB3') ? -60 : 0)"
+    "return": "(u_has_trait('MANA_ADD1') ? 60 : 0) + (u_has_trait('MANA_ADD2') ? 120 : 0) + (u_has_trait('MANA_ADD3') ? 240 : 0) + (u_has_trait('MANA_SUB1') ? -60 : 0) + (u_has_trait('MANA_SUB2') ? -120 : 0) + (u_has_trait('MANA_SUB3') ? -240 : 0)"
   },
   {
     "type": "jmath_function",
