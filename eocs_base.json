@@ -72,7 +72,7 @@
     "id": "EOC_MAGICLYSM_WEARINESS_CANT_CAST_SPELLS_WHILE_TIRED",
     "eoc_type": "EVENT",
     "required_event": "opens_spellbook",
-    "condition": { "or": [ { "u_has_effect": "weary_6" }, { "u_has_effect": "weary_7" }, { "u_has_effect": "weary_8" } ] },
+    "condition": { "or": [ { "u_has_effect": "weary_5" }, { "u_has_effect": "weary_6" }, { "u_has_effect": "weary_7" }, { "u_has_effect": "weary_8" } ] },
     "effect": [
       { "math": [ "u_spellcasting_adjustment('difficulty', 'mod': 'magiclysm') = 999" ] },
       { "math": [ "u_spellcasting_adjustment('cost', 'mod': 'magiclysm') = 999" ] },
